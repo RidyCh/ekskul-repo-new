@@ -16,6 +16,7 @@
                 </div>
             </div><!-- /.container-fluid -->
         </section>
+        @foreach ($data as $a)
         <section class="content">
             <div class="container">
                 <div class="row">
@@ -27,7 +28,7 @@
                             </div>
                             <!-- /.card-header -->
                             <!-- form start -->
-                            <form action="{{ url('/tambah-jadwal') }}" method="post">
+                            <form action="{{ url('/ubah-jadwal', $a->id) }}" method="post">
                                 @csrf
                                 <div class="card-body">
                                     <div class="form-group">
@@ -74,77 +75,9 @@
                                 </div>
                             </form>
                         </div>
-                        <div class="card">
-                            <div class="card-header">
-                                <h3 class="card-title">DataTable with default features</h3>
-                            </div>
-                            <!-- /.card-header -->
-                            <div class="card-body">
-                                <table id="example1" class="table table-bordered table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th>No</th>
-                                            <th class="col-2">Tanggal Ekskul</th>
-                                            <th class="col-2">Lokasi</th>
-                                            <th class="col-2">Jam Mulai</th>
-                                            <th class="col-2">Jam Selesai</th>
-                                            <th class="col-2">Status</th>
-                                            <th class="col-2">Aksi</th>
-                                        </tr>
-                                    </thead>
-                                    @foreach ($data as $item)
-                                        <tbody>
-                                            <tr>
-                                                <td>{{ $loop->iteration }}</td>
-                                                <td>{{ $item->tanggal_ekskul }}</td>
-                                                <td>{{ $item->lokasi }}</td>
-                                                <td>{{ $item->jam_mulai }}</td>
-                                                <td>{{ $item->jam_selesai }}</td>
-                                                <td>{{ $item->status }}</td>
-                                                <td>
-                                                    <form action="{{ url('/hapus-jadwal', $item->id) }}" method="POST">
-                                                        @csrf
-                                                        <a href="{{ route('editJ', $item->id) }}"
-                                                            class="font-medium text-blue-600 dark:text-blue-500 hover:underline btn btn-primary">
-                                                            <i class="fas fa-edit"></i>
-                                                        </a>
-                                                        @method('DELETE')
-                                                        <button
-                                                            class="font-medium text-blue-600 dark:text-blue-500 hover:underline btn btn-danger">
-                                                            <i class="fas fa-trash"></i>
-                                                    </button>
-                                                    </form>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    @endforeach
-                                </table>
-                            </div>
-                            <!-- /.card-body -->
-                        </div>
                     </div>
                 </div>
         </section>
+        @endforeach
     </div>
-
-    <!-- Page specific script -->
-    <script>
-        $(function() {
-            $("#example1").DataTable({
-                "responsive": true,
-                "lengthChange": false,
-                "autoWidth": false,
-                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-            $('#example2').DataTable({
-                "paging": true,
-                "lengthChange": false,
-                "searching": false,
-                "ordering": true,
-                "info": true,
-                "autoWidth": false,
-                "responsive": true,
-            });
-        });
-    </script>
 @endsection

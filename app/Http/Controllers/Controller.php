@@ -15,29 +15,24 @@ class Controller extends BaseController
 
     public function login()
     {
-        if (Auth::check()) {
-            return redirect('/dashboard');
-        }else{
-            return view('pages.login.index');
-        }
+        return view('pages.login.index');
     }
 
     public function Auth(Request $request)
     {
         $request->validate([
-            'username' => 'required',
+            'email' => 'required',
             'password' => 'required',
-            'ekskul_role' => 'required',
         ]);
 
-        $input = $request->only('username', 'password', 'ekskul_role');
+        $input = $request->only('email', 'password');
 
-        if(Auth::guard('web')->attempt($input))
-        {
-            return redirect('/dashboard');
+        if(Auth::attempt($input)) {
+            return "berhasil";
+            // return redirect('/dashboard');
         }else{
-            dd(Auth::guard('web')->user());
-            return redirect('/login')->with('error','Gagal');
+            return "gagal";
+            // return redirect('/login')->with('error','Gagal');
         }
     }
 
@@ -49,7 +44,11 @@ class Controller extends BaseController
 
     public function index()
     {
-        return view('pages.dashboard.index');
+        if(Auth::check()) {
+            return view('pages.dashboard.index');
+        } else {
+            return redirect()->route('login');
+        }
     }
 
     public function web()

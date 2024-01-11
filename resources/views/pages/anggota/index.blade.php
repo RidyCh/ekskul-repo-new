@@ -43,7 +43,7 @@
                                     <div class="form-group">
                                         <label for="exampleInputPassword2">Ekstrakulikuler</label>
                                         <input type="text" name="ekskul_role" class="form-control"
-                                            id="exampleInputPassword2" placeholder="Ekstrakulikuler">
+                                            id="exampleInputPassword2" placeholder="Basket">
                                     </div>
                                 </div>
                                 <!-- /.card-body -->
@@ -77,15 +77,15 @@
                                                 <td>{{ $item->kelas }}</td>
                                                 <td>{{ $item->ekskul_role }}</td>
                                                 <td>
-                                                    <form action="" method="POST">
+                                                    <form action="{{ url('/hapus-anggota', $item->id) }}" method="POST">
                                                         @csrf
-                                                        <a href="{{ url('/ubah-anggota', $item->id) }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline btn btn-primary">
+                                                        <a href="{{ route('editA', $item->id) }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline btn btn-primary">
                                                             <i class="fas fa-edit"></i>
                                                         </a>
                                                         @method('DELETE')
-                                                        <a href="{{ url('/hapus-anggota', $item->id) }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline btn btn-danger">
+                                                        <button type="submit" class="font-medium text-blue-600 dark:text-blue-500 hover:underline btn btn-danger">
                                                             <i class="fas fa-trash"></i>
-                                                        </a>
+                                                        </button>
                                                     </form>
                                                 </td>
                                             </tr>

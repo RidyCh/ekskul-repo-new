@@ -70,9 +70,12 @@ class AnggotaController extends Controller
      * @param  \App\Models\Anggota  $anggota
      * @return \Illuminate\Http\Response
      */
-    public function edit(Anggota $anggota)
+    public function edit($id)
     {
-        //
+        $data = Anggota::find($id);
+        return view('pages.anggota.edit', [
+            'data' => $data
+        ]);
     }
 
     /**
@@ -93,9 +96,10 @@ class AnggotaController extends Controller
      * @param  \App\Models\Anggota  $anggota
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Anggota $anggota)
+    public function destroy($id)
     {
-        $anggota->delete();
+        $del = Anggota::findOrFail($id);
+        $del->delete();
         return redirect()->back();
     }
 }

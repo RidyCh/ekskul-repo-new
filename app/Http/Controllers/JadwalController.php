@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Jadwal;
-use App\Models\Anggota;
 use Illuminate\Http\Request;
 
 class JadwalController extends Controller
@@ -47,7 +46,8 @@ class JadwalController extends Controller
             'status' => 'required',
         ]);
 
-        Anggota::create([
+        Jadwal::create([
+            'ekskul_role' => 'Basket',
             'tanggal_ekskul' =>$request['tanggal_ekskul'],
             'lokasi' =>$request['lokasi'],
             'jam_mulai' =>$request['jam_mulai'],
@@ -75,9 +75,12 @@ class JadwalController extends Controller
      * @param  \App\Models\Jadwal  $jadwal
      * @return \Illuminate\Http\Response
      */
-    public function edit(Jadwal $jadwal)
+    public function edit(Jadwal $jadwal, $id)
     {
-        //
+        $data = Jadwal::find($id);
+        return view('pages.jadwal.edit', [
+            'data' => $data
+        ]);
     }
 
     /**
@@ -98,8 +101,10 @@ class JadwalController extends Controller
      * @param  \App\Models\Jadwal  $jadwal
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Jadwal $jadwal)
+    public function destroy($id)
     {
-        //
+        $del = Jadwal::findorFail($id);
+        $del->delete();
+        return redirect()->back();
     }
 }

@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\LoginController;
 use App\Http\Controllers\JadwalController;
 use App\Http\Controllers\AnggotaController;
 
@@ -20,7 +19,7 @@ use App\Http\Controllers\AnggotaController;
 Route::get('/', [Controller::class, 'web']);
 
 // dashboard-admin
-Route::get('/dashboard', [Controller::class, 'index'])->middleware('auth');
+Route::get('/dashboard', [Controller::class, 'index']);
 
 // route authentification
 Route::get('/login', [Controller::class, 'login'])->name('login');
@@ -30,11 +29,13 @@ Route::post('/logout', [Controller::class, 'logout']);
 // route anggota
 Route::get('/anggota', [AnggotaController::class, 'index']);
 Route::post('/tambah-anggota', [AnggotaController::class, 'store']);
-Route::post('/ubah-anggota', [AnggotaController::class, 'edit']);
+Route::get('/anggota/{id}/edit', [AnggotaController::class, 'edit'])->name('editA');
+Route::post('/anggota/{id}', [AnggotaController::class, 'update']);
 Route::delete('/hapus-anggota/{id}', [AnggotaController::class, 'destroy']);
 
 // route jadwal
 Route::get('/jadwal', [JadwalController::class, 'index']);
 Route::post('/tambah-jadwal', [JadwalController::class, 'store']);
-Route::post('/ubah-jadwal', [JadwalController::class, 'edit']);
+Route::get('/jadwal/{id}/edit', [JadwalController::class, 'edit'])->name('editJ');
+Route::post('/jadwal/{id}', [JadwalController::class, 'update']);
 Route::delete('/hapus-jadwal/{id}', [JadwalController::class, 'destroy']);
